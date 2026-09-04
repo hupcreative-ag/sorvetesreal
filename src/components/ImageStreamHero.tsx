@@ -18,15 +18,15 @@ export type CorridorPath = {
 };
 
 const PATH: Required<CorridorPath> = {
-  perspective: 32,
+  perspective: 30,
   cardWidth: 17,
-  cardHeight: 23,
-  cardRadius: 1.2,
+  cardHeight: 25.5, // Matches 2:3 vertical photo aspect ratio (853x1280)
+  cardRadius: 0.8,
   birthHeight: 2.6,
-  exitHeight: 48,
-  railBirth: -14,
-  railExit: 48,
-  fan: 3.5,
+  exitHeight: 46,
+  railBirth: -12,
+  railExit: 45,
+  fan: 3.3,
   turnBirth: 6,
   turnExit: 28,
   stops: 24,
@@ -69,8 +69,8 @@ export type ImageStreamHeroProps = {
 
 export function ImageStreamHero({
   images,
-  cards = 6,
-  speed = 22,
+  cards = 9,
+  speed = 20,
   axis = 55,
   path,
   children,
@@ -115,7 +115,7 @@ export function ImageStreamHero({
                   key={`${name}-${i}`}
                   className={cn(
                     card,
-                    "absolute overflow-hidden rounded-2xl shadow-2xl bg-[#59171C]/30 border border-white/30 p-1 flex items-center justify-center"
+                    "absolute overflow-hidden rounded-xl shadow-xl bg-[#541517]/25 border border-white/20 p-0.5"
                   )}
                   style={{
                     left: "50%",
@@ -131,13 +131,13 @@ export function ImageStreamHero({
                   }}
                 >
                   {img ? (
-                    <div className="w-full h-full rounded-[inherit] overflow-hidden bg-black/20 flex items-center justify-center relative">
+                    <div className="w-full h-full rounded-[inherit] overflow-hidden flex items-center justify-center relative">
                       <img
                         src={img.src}
                         alt={img.alt ?? ""}
                         loading="lazy"
                         decoding="async"
-                        className="w-full h-full object-cover rounded-[inherit] pointer-events-none select-none"
+                        className="w-full h-full object-cover rounded-[inherit] pointer-events-none select-none aspect-[2/3]"
                         draggable={false}
                       />
                     </div>
