@@ -16,32 +16,33 @@ export interface AnimatedTestimonialGridProps {
   children?: React.ReactNode;
 }
 
-// --- PRE-DEFINED POSITIONS FOR THE FLOATING PHOTOS ---
-// Carefully distributed across desktop, tablet, and mobile views to surround site content
+// --- PRE-DEFINED POSITIONS FOR FLOATING PHOTOS AROUND SITE CONTENT ---
 const imagePositions = [
-  // Desktop and Tablet positions (around hero, links section, and footer)
-  { top: '3%', left: '6%', className: 'hidden lg:block w-24 h-32 md:w-28 md:h-38' },
-  { top: '10%', left: '25%', className: 'hidden md:block w-20 h-28' },
-  { top: '2%', right: '24%', className: 'hidden md:block w-22 h-30' },
-  { top: '6%', right: '6%', className: 'hidden lg:block w-28 h-38' },
-  { top: '30%', right: '4%', className: 'hidden md:block w-24 h-34' },
-  { top: '52%', right: '6%', className: 'hidden lg:block w-26 h-36' },
-  { top: '48%', left: '4%', className: 'hidden md:block w-28 h-38' },
-  { bottom: '18%', left: '8%', className: 'hidden lg:block w-24 h-34' },
-  { bottom: '8%', left: '28%', className: 'hidden md:block w-20 h-28' },
-  { bottom: '12%', right: '28%', className: 'hidden md:block w-24 h-34' },
-  { bottom: '4%', right: '6%', className: 'hidden lg:block w-24 h-32' },
+  // Desktop and Tablet positions (floating at side margins around content)
+  { top: '4%', left: '4%', className: 'hidden lg:block w-24 h-34 sm:w-28 sm:h-40' },
+  { top: '16%', left: '16%', className: 'hidden xl:block w-20 h-28' },
+  { top: '3%', right: '16%', className: 'hidden xl:block w-22 h-30' },
+  { top: '5%', right: '4%', className: 'hidden lg:block w-26 h-38' },
+  { top: '32%', right: '3%', className: 'hidden md:block w-22 h-32' },
+  { top: '56%', right: '4%', className: 'hidden lg:block w-24 h-36' },
+  { top: '42%', left: '3%', className: 'hidden md:block w-24 h-36' },
+  { bottom: '16%', left: '5%', className: 'hidden lg:block w-24 h-34' },
+  { bottom: '6%', left: '18%', className: 'hidden xl:block w-20 h-28' },
+  { bottom: '10%', right: '18%', className: 'hidden xl:block w-22 h-32' },
+  { bottom: '5%', right: '4%', className: 'hidden lg:block w-24 h-34' },
 
-  // Mobile-specific positions (positioned gracefully at corners/margins)
-  { top: '5%', left: '3%', className: 'block md:hidden w-16 h-22 opacity-85' },
-  { top: '3%', right: '4%', className: 'block md:hidden w-18 h-24 opacity-85' },
-  { bottom: '20%', left: '3%', className: 'block md:hidden w-18 h-24 opacity-85' },
-  { bottom: '6%', right: '3%', className: 'block md:hidden w-16 h-22 opacity-85' },
+  // Mobile-specific floating positions (staying at outer edges to avoid content overlap)
+  { top: '4%', left: '2%', className: 'block md:hidden w-14 h-20 opacity-90' },
+  { top: '3%', right: '2%', className: 'block md:hidden w-16 h-22 opacity-90' },
+  { top: '44%', left: '2%', className: 'block md:hidden w-16 h-22 opacity-90' },
+  { top: '42%', right: '2%', className: 'block md:hidden w-14 h-20 opacity-90' },
+  { bottom: '16%', left: '2%', className: 'block md:hidden w-16 h-22 opacity-90' },
+  { bottom: '5%', right: '2%', className: 'block md:hidden w-14 h-20 opacity-90' },
 ];
 
 // --- ANIMATION LOGIC ---
 const imageVariants = {
-  initial: { opacity: 0, scale: 0.5 },
+  initial: { opacity: 0, scale: 0.6 },
   animate: { 
     opacity: 1, 
     scale: 1, 
@@ -49,13 +50,13 @@ const imageVariants = {
       type: 'spring' as const, 
       stiffness: 260, 
       damping: 20,
-      delay: Math.random() * 0.4,
+      delay: Math.random() * 0.3,
     } 
   },
 };
 
 const floatingAnimation = () => ({
-  y: [0, Math.random() * -12 - 4, 0],
+  y: [0, Math.random() * -10 - 4, 0],
   rotate: [0, Math.random() * 4 - 2, 0],
   transition: {
     duration: Math.random() * 3 + 4,
@@ -75,17 +76,17 @@ export const AnimatedTestimonialGrid = ({
   return (
     <div
       className={cn(
-        'relative w-full min-h-screen mx-auto overflow-hidden',
+        'relative w-full min-h-screen mx-auto overflow-hidden bg-real-red',
         className
       )}
     >
-      {/* Floating Photo Containers Across Site */}
+      {/* Clean Floating Photos (NO container borders, NO background image) */}
       <div className="absolute inset-0 pointer-events-none z-0">
         {testimonials.slice(0, imagePositions.length).map((testimonial, index) => (
           <motion.div
             key={index}
             className={cn(
-              'absolute rounded-2xl shadow-2xl overflow-hidden border-2 border-white/30 bg-[#541517]/30 backdrop-blur-[2px] pointer-events-auto transition-shadow duration-300',
+              'absolute rounded-2xl shadow-xl overflow-hidden pointer-events-auto transition-transform duration-300 hover:shadow-2xl',
               imagePositions[index].className
             )}
             style={{ 
@@ -97,20 +98,20 @@ export const AnimatedTestimonialGrid = ({
             variants={imageVariants}
             initial="initial"
             animate="animate"
-            whileHover={{ scale: 1.12, zIndex: 30, rotate: 0 }}
+            whileHover={{ scale: 1.1, zIndex: 30, rotate: 0 }}
             custom={index}
           >
             <motion.img
               src={testimonial.imgSrc}
               alt={testimonial.alt}
-              className="w-full h-full object-cover rounded-xl pointer-events-none select-none aspect-[2/3]"
+              className="w-full h-full object-cover rounded-2xl pointer-events-none select-none aspect-[2/3]"
               animate={floatingAnimation()}
             />
           </motion.div>
         ))}
       </div>
 
-      {/* Main Page Layout Content */}
+      {/* Main Content Layout on Clean Red Background */}
       <div className="relative z-10 w-full flex flex-col items-center">
         {children}
       </div>
