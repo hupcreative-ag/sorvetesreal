@@ -16,56 +16,49 @@ export interface AnimatedTestimonialGridProps {
   children?: React.ReactNode;
 }
 
-// --- STRICT OUTER MARGIN POSITIONS FOR FLOATING PHOTOS ---
-// Strictly placed on outer left (2% - 8%) and outer right (2% - 8%) margins.
-// ZERO images in the central content area (10% to 90%).
+// --- ORGANIC OUT-OF-ALIGNMENT POSITIONS FOR FLOATING PHOTOS ---
+// Organic vertical & horizontal offsets + slight rotation tilt to feel natural & solar
 const imagePositions = [
-  // Left side floating photos (Desktop / Tablet)
-  { top: '4%', left: '3%', width: '115px', height: '170px', className: 'hidden md:block' },
-  { top: '28%', left: '4%', width: '100px', height: '150px', className: 'hidden md:block' },
-  { top: '52%', left: '3%', width: '115px', height: '170px', className: 'hidden md:block' },
-  { top: '76%', left: '4%', width: '105px', height: '155px', className: 'hidden md:block' },
+  // Left side organic floating photos (Desktop / Tablet)
+  { top: '3%', left: '2%', width: '115px', height: '170px', initialRotate: -6, className: 'hidden md:block' },
+  { top: '22%', left: '6.5%', width: '100px', height: '148px', initialRotate: 5, className: 'hidden md:block' },
+  { top: '44%', left: '1.5%', width: '120px', height: '178px', initialRotate: -4, className: 'hidden md:block' },
+  { top: '65%', left: '6%', width: '105px', height: '155px', initialRotate: 7, className: 'hidden md:block' },
+  { top: '84%', left: '2.5%', width: '110px', height: '162px', initialRotate: -5, className: 'hidden lg:block' },
 
-  // Right side floating photos (Desktop / Tablet)
-  { top: '4%', right: '3%', width: '115px', height: '170px', className: 'hidden md:block' },
-  { top: '28%', right: '4%', width: '105px', height: '155px', className: 'hidden md:block' },
-  { top: '52%', right: '3%', width: '115px', height: '170px', className: 'hidden md:block' },
-  { top: '76%', right: '4%', width: '100px', height: '150px', className: 'hidden md:block' },
+  // Right side organic floating photos (Desktop / Tablet)
+  { top: '4%', right: '2.5%', width: '110px', height: '162px', initialRotate: 6, className: 'hidden md:block' },
+  { top: '25%', right: '6%', width: '115px', height: '170px', initialRotate: -7, className: 'hidden md:block' },
+  { top: '47%', right: '1.5%', width: '105px', height: '155px', initialRotate: 4, className: 'hidden md:block' },
+  { top: '68%', right: '6.5%', width: '118px', height: '175px', initialRotate: -5, className: 'hidden md:block' },
+  { top: '86%', right: '3%', width: '100px', height: '148px', initialRotate: 6, className: 'hidden lg:block' },
 
-  // Mobile side floating photos (Smaller, strictly pinned to screen edges)
-  { top: '5%', left: '2%', width: '70px', height: '105px', className: 'block md:hidden opacity-90' },
-  { top: '5%', right: '2%', width: '70px', height: '105px', className: 'block md:hidden opacity-90' },
-  { top: '48%', left: '2%', width: '65px', height: '98px', className: 'block md:hidden opacity-90' },
-  { top: '48%', right: '2%', width: '65px', height: '98px', className: 'block md:hidden opacity-90' },
-  { bottom: '6%', left: '2%', width: '70px', height: '105px', className: 'block md:hidden opacity-90' },
-  { bottom: '6%', right: '2%', width: '70px', height: '105px', className: 'block md:hidden opacity-90' },
+  // Mobile organic positions (outer edges with gentle tilt and organic spacing)
+  { top: '4%', left: '1.5%', width: '70px', height: '104px', initialRotate: -5, className: 'block md:hidden opacity-90' },
+  { top: '3%', right: '2%', width: '72px', height: '106px', initialRotate: 6, className: 'block md:hidden opacity-90' },
+  { top: '46%', left: '2%', width: '68px', height: '100px', initialRotate: 4, className: 'block md:hidden opacity-90' },
+  { top: '44%', right: '1.5%', width: '70px', height: '104px', initialRotate: -6, className: 'block md:hidden opacity-90' },
+  { bottom: '5%', left: '2%', width: '72px', height: '106px', initialRotate: -3, className: 'block md:hidden opacity-90' },
+  { bottom: '4%', right: '2%', width: '68px', height: '100px', initialRotate: 5, className: 'block md:hidden opacity-90' },
 ];
 
-// --- ANIMATION LOGIC ---
-const imageVariants = {
-  initial: { opacity: 0, scale: 0.6 },
-  animate: { 
-    opacity: 1, 
-    scale: 1, 
-    transition: { 
-      type: 'spring' as const, 
-      stiffness: 260, 
-      damping: 20,
-      delay: Math.random() * 0.3,
-    } 
-  },
-};
+// --- ANIMATION LOGIC FOR WHOLE BLOCK FLOATING ---
+const getFloatingKeyframes = (index: number) => {
+  const yRange = -10 - (index % 4) * 3;
+  const dur = 4 + (index % 3) * 1.2;
+  const rotDelta = (index % 2 === 0 ? 1 : -1) * (2 + (index % 3));
 
-const floatingAnimation = () => ({
-  y: [0, Math.random() * -10 - 4, 0],
-  rotate: [0, Math.random() * 4 - 2, 0],
-  transition: {
-    duration: Math.random() * 3 + 4,
-    repeat: Infinity,
-    repeatType: 'reverse' as const,
-    ease: 'easeInOut' as const,
-  },
-});
+  return {
+    y: [0, yRange, 0],
+    rotate: [imagePositions[index]?.initialRotate ?? 0, (imagePositions[index]?.initialRotate ?? 0) + rotDelta, imagePositions[index]?.initialRotate ?? 0],
+    transition: {
+      duration: dur,
+      repeat: Infinity,
+      repeatType: 'reverse' as const,
+      ease: 'easeInOut' as const,
+    },
+  };
+};
 
 // --- COMPONENT ---
 export const AnimatedTestimonialGrid = ({
@@ -81,15 +74,17 @@ export const AnimatedTestimonialGrid = ({
         className
       )}
     >
-      {/* Floating Side Photos (Strictly in outer left/right margins) */}
+      {/* Organic Floating Photo Cards (Whole card floats, NO internal mask clipping) */}
       <div className="absolute inset-0 pointer-events-none z-0">
         {testimonials.slice(0, imagePositions.length).map((testimonial, index) => {
           const pos = imagePositions[index];
+          const floatAnim = getFloatingKeyframes(index);
+
           return (
             <motion.div
               key={index}
               className={cn(
-                'absolute rounded-2xl shadow-xl overflow-hidden pointer-events-auto transition-transform duration-300 hover:shadow-2xl',
+                'absolute rounded-2xl shadow-xl overflow-hidden pointer-events-auto transition-shadow duration-300 hover:shadow-2xl',
                 pos.className
               )}
               style={{ 
@@ -100,24 +95,26 @@ export const AnimatedTestimonialGrid = ({
                 width: pos.width,
                 height: pos.height,
               }}
-              variants={imageVariants}
-              initial="initial"
-              animate="animate"
-              whileHover={{ scale: 1.12, zIndex: 30, rotate: 0 }}
+              initial={{ opacity: 0, scale: 0.6, rotate: pos.initialRotate }}
+              animate={{
+                opacity: 1,
+                scale: 1,
+                ...floatAnim,
+              }}
+              whileHover={{ scale: 1.15, zIndex: 30, rotate: 0 }}
               custom={index}
             >
-              <motion.img
+              <img
                 src={testimonial.imgSrc}
                 alt={testimonial.alt}
                 className="w-full h-full object-cover rounded-2xl pointer-events-none select-none aspect-[2/3]"
-                animate={floatingAnimation()}
               />
             </motion.div>
           );
         })}
       </div>
 
-      {/* Main Page Layout (100% clean central red background) */}
+      {/* Main Content Layout (100% clean central red background) */}
       <div className="relative z-10 w-full flex flex-col items-center">
         {children}
       </div>
