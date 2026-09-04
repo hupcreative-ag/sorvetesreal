@@ -1,4 +1,4 @@
-import ImageStreamHero from "@/components/ImageStreamHero";
+import AnimatedTestimonialGrid from "@/components/ui/testimonial-2";
 import LinkButton from "@/components/LinkButton";
 import {
   WhatsAppIcon,
@@ -7,113 +7,101 @@ import {
   InstagramIcon,
 } from "@/components/Icons";
 
-const HERO_IMAGES = [
-  { src: "/fotos/foto-01.jpeg", alt: "Sorvetes Real do Solar - Sorvete artesanal" },
-  { src: "/fotos/foto-02.jpeg", alt: "Sorvetes Real do Solar - Loja Ribeira" },
-  { src: "/fotos/foto-03.jpeg", alt: "Sorvetes Real do Solar - Picolés e Sorvetes" },
-  { src: "/fotos/foto-04.jpeg", alt: "Sorvetes Real do Solar - Sabor Chocolate Africano" },
-  { src: "/fotos/foto-05.jpeg", alt: "Sorvetes Real do Solar - Momentos Especiais" },
-  { src: "/fotos/foto-06.jpeg", alt: "Sorvetes Real do Solar - Solar Amado Bahia" },
-  { src: "/fotos/foto-07.jpeg", alt: "Sorvetes Real do Solar - Sorvete de Frutas" },
-  { src: "/fotos/foto-08.jpeg", alt: "Sorvetes Real do Solar - Tradição Soteropolitana" },
-  { src: "/fotos/foto-09.jpeg", alt: "Sorvetes Real do Solar - Experiência Real" },
-  { src: "/fotos/foto-10.jpeg", alt: "Sorvetes Real do Solar - Ribeira Salvador" },
+const SITE_PHOTOS = [
+  { imgSrc: "/fotos/foto-01.jpeg", alt: "Sorvetes Real do Solar - Sorvete artesanal" },
+  { imgSrc: "/fotos/foto-02.jpeg", alt: "Sorvetes Real do Solar - Loja Ribeira" },
+  { imgSrc: "/fotos/foto-03.jpeg", alt: "Sorvetes Real do Solar - Picolés e Sorvetes" },
+  { imgSrc: "/fotos/foto-04.jpeg", alt: "Sorvetes Real do Solar - Sabor Chocolate Africano" },
+  { imgSrc: "/fotos/foto-05.jpeg", alt: "Sorvetes Real do Solar - Momentos Especiais" },
+  { imgSrc: "/fotos/foto-06.jpeg", alt: "Sorvetes Real do Solar - Solar Amado Bahia" },
+  { imgSrc: "/fotos/foto-07.jpeg", alt: "Sorvetes Real do Solar - Sorvete de Frutas" },
+  { imgSrc: "/fotos/foto-08.jpeg", alt: "Sorvetes Real do Solar - Tradição Soteropolitana" },
+  { imgSrc: "/fotos/foto-09.jpeg", alt: "Sorvetes Real do Solar - Experiência Real" },
+  { imgSrc: "/fotos/foto-10.jpeg", alt: "Sorvetes Real do Solar - Ribeira Salvador" },
 ];
 
 export default function Home() {
   return (
     <main className="min-h-screen bg-real-red text-white flex flex-col justify-between items-center w-full relative overflow-x-hidden selection:bg-real-gold selection:text-real-wine">
-      {/* 1. HERO SECTION */}
-      <section className="w-full relative flex flex-col items-center justify-between pt-12 sm:pt-16 md:pt-20 pb-6 min-h-[75vh] md:min-h-[80vh]">
-        {/* Brand Logo Header - Positioned lower with balanced padding */}
-        <header className="animate-stagger-1 z-20 flex flex-col items-center justify-center px-4 w-full max-w-lg mb-2">
-          <div className="relative w-60 sm:w-72 md:w-84 aspect-[1439/809] drop-shadow-lg transition-transform duration-300 hover:scale-105">
-            <img
-              src="/logos/Logo-real-do-solar-01.png"
-              alt="Sorvetes Real do Solar"
-              className="w-full h-full object-contain"
-              loading="eager"
-            />
-          </div>
-        </header>
+      <AnimatedTestimonialGrid testimonials={SITE_PHOTOS}>
+        <div className="w-full flex flex-col items-center justify-between min-h-screen py-10 md:py-14 px-4">
+          
+          {/* 1. HERO & LOGO */}
+          <header className="animate-stagger-1 z-20 flex flex-col items-center justify-center pt-6 sm:pt-10 md:pt-14 pb-4 w-full max-w-lg">
+            <div className="relative w-64 sm:w-80 md:w-96 aspect-[1439/809] drop-shadow-xl transition-transform duration-300 hover:scale-105">
+              <img
+                src="/logos/Logo-real-do-solar-01.png"
+                alt="Sorvetes Real do Solar"
+                className="w-full h-full object-contain"
+                loading="eager"
+              />
+            </div>
+            <p className="animate-stagger-2 text-real-gold font-bold text-2xl sm:text-3xl tracking-wider uppercase drop-shadow-md text-center mt-4 sm:mt-6">
+              Made in Salvador, Bahia.
+            </p>
+          </header>
 
-        {/* 3D Photo Corridor Stream Component with 8 Cards for Ideal Spacing */}
-        <div className="w-full my-auto py-4 z-10 animate-stagger-2">
-          <ImageStreamHero
-            images={HERO_IMAGES}
-            cards={8}
-            speed={20}
-            axis={52}
-            className="w-full h-[260px] sm:h-[310px] md:h-[370px]"
-          />
+          {/* 2. BUTTONS / LINKS SECTION */}
+          <section className="w-full flex flex-col items-center justify-center py-8 gap-4 z-20 animate-stagger-3 max-w-lg my-auto">
+            <LinkButton
+              variant="gold"
+              href="http://api.whatsapp.com/send?phone=5571982908205&text="
+              icon={<WhatsAppIcon className="w-7 h-7" />}
+            >
+              Fazer pedido - Consumidor
+            </LinkButton>
+
+            <LinkButton
+              variant="gold"
+              href="http://api.whatsapp.com/send?phone=5571987773174&text="
+              icon={<WhatsAppIcon className="w-7 h-7" />}
+            >
+              Fazer pedido - Revendedor
+            </LinkButton>
+
+            <LinkButton
+              variant="white"
+              href="http://flow.page/deliveryreal"
+              icon={<DeliveryIcon className="w-7 h-7" />}
+            >
+              Delivery
+            </LinkButton>
+
+            <LinkButton
+              variant="gold"
+              href="http://www.instagram.com/s/aGlnaGxpZ2h0OjE3OTc3MzUxMDI0NDkwMTky?story_media_id=2829511269317691198&igshid=YmMyMTA2M2Y="
+              icon={<StorePinIcon className="w-7 h-7" />}
+            >
+              Nossas Lojas
+            </LinkButton>
+
+            <LinkButton
+              variant="white"
+              href="https://www.instagram.com/solaramadobahia/"
+              icon={<InstagramIcon className="w-7 h-7" />}
+            >
+              Solar Amado Bahia - Loja Ribeira
+            </LinkButton>
+          </section>
+
+          {/* 3. FOOTER */}
+          <footer className="w-full py-6 pb-6 flex flex-col items-center justify-center gap-2 text-center text-real-white/90 z-20 animate-stagger-4">
+            <a
+              href="https://www.instagram.com/sorvetesreal/"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center gap-2 text-real-gold hover:text-white transition-colors duration-300 font-bold text-xl tracking-wider uppercase group"
+            >
+              <InstagramIcon className="w-5 h-5 transition-transform duration-300 group-hover:scale-110 group-hover:rotate-6 text-real-gold group-hover:text-white" />
+              <span>@sorvetesreal</span>
+            </a>
+            <p className="text-sm font-light tracking-widest opacity-80 uppercase text-white/80">
+              Sorvetes Real &copy; {new Date().getFullYear()}
+            </p>
+          </footer>
+
         </div>
-
-        {/* Hero Tagline */}
-        <div className="animate-stagger-3 z-20 text-center px-4 mt-4">
-          <p className="text-real-gold font-bold text-2xl sm:text-3xl tracking-wider uppercase drop-shadow-sm">
-            Made in Salvador, Bahia.
-          </p>
-        </div>
-      </section>
-
-      {/* 2. BUTTONS / LINKS SECTION */}
-      <section className="w-full flex flex-col items-center justify-center px-4 py-8 gap-4 z-20 animate-stagger-4 max-w-lg">
-        <LinkButton
-          variant="gold"
-          href="http://api.whatsapp.com/send?phone=5571982908205&text="
-          icon={<WhatsAppIcon className="w-7 h-7" />}
-        >
-          Fazer pedido - Consumidor
-        </LinkButton>
-
-        <LinkButton
-          variant="gold"
-          href="http://api.whatsapp.com/send?phone=5571987773174&text="
-          icon={<WhatsAppIcon className="w-7 h-7" />}
-        >
-          Fazer pedido - Revendedor
-        </LinkButton>
-
-        <LinkButton
-          variant="white"
-          href="http://flow.page/deliveryreal"
-          icon={<DeliveryIcon className="w-7 h-7" />}
-        >
-          Delivery
-        </LinkButton>
-
-        <LinkButton
-          variant="gold"
-          href="http://www.instagram.com/s/aGlnaGxpZ2h0OjE3OTc3MzUxMDI0NDkwMTky?story_media_id=2829511269317691198&igshid=YmMyMTA2M2Y="
-          icon={<StorePinIcon className="w-7 h-7" />}
-        >
-          Nossas Lojas
-        </LinkButton>
-
-        <LinkButton
-          variant="white"
-          href="https://www.instagram.com/solaramadobahia/"
-          icon={<InstagramIcon className="w-7 h-7" />}
-        >
-          Solar Amado Bahia - Loja Ribeira
-        </LinkButton>
-      </section>
-
-      {/* 3. FOOTER */}
-      <footer className="w-full py-6 pb-8 flex flex-col items-center justify-center gap-2 text-center text-real-white/90 z-20">
-        <a
-          href="https://www.instagram.com/sorvetesreal/"
-          target="_blank"
-          rel="noopener noreferrer"
-          className="inline-flex items-center gap-2 text-real-gold hover:text-white transition-colors duration-300 font-bold text-xl tracking-wider uppercase group"
-        >
-          <InstagramIcon className="w-5 h-5 transition-transform duration-300 group-hover:scale-110 group-hover:rotate-6 text-real-gold group-hover:text-white" />
-          <span>@sorvetesreal</span>
-        </a>
-        <p className="text-sm font-light tracking-widest opacity-80 uppercase text-white/80">
-          Sorvetes Real &copy; {new Date().getFullYear()}
-        </p>
-      </footer>
+      </AnimatedTestimonialGrid>
     </main>
   );
 }
