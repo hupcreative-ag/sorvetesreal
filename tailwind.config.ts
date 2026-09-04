@@ -9,9 +9,9 @@ const config: Config = {
   theme: {
     extend: {
       colors: {
-        "real-red": "#BD3C38",
-        "real-gold": "#F1CA4C",
-        "real-wine": "#682423",
+        "real-red": "#C4242D",
+        "real-gold": "#F8C427",
+        "real-wine": "#59171C",
         "real-white": "#FFFFFF",
       },
       fontFamily: {

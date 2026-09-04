@@ -1,4 +1,3 @@
-import Image from "next";
 import ImageStreamHero from "@/components/ImageStreamHero";
 import LinkButton from "@/components/LinkButton";
 import {
@@ -25,10 +24,10 @@ export default function Home() {
   return (
     <main className="min-h-screen bg-real-red text-white flex flex-col justify-between items-center w-full relative overflow-x-hidden selection:bg-real-gold selection:text-real-wine">
       {/* 1. HERO SECTION */}
-      <section className="w-full relative flex flex-col items-center justify-between pt-6 md:pt-10 pb-4 min-h-[70vh] md:min-h-[75vh]">
-        {/* Brand Logo Header */}
-        <header className="animate-stagger-1 z-20 flex flex-col items-center justify-center px-4 w-full max-w-lg">
-          <div className="relative w-56 sm:w-64 md:w-80 aspect-[1439/809] drop-shadow-md transition-transform duration-300 hover:scale-105">
+      <section className="w-full relative flex flex-col items-center justify-between pt-12 sm:pt-16 md:pt-20 lg:pt-24 pb-6 min-h-[75vh] md:min-h-[80vh]">
+        {/* Brand Logo Header - Positioned lower with generous breathing room */}
+        <header className="animate-stagger-1 z-20 flex flex-col items-center justify-center px-4 w-full max-w-lg mb-2">
+          <div className="relative w-60 sm:w-72 md:w-84 aspect-[1439/809] drop-shadow-lg transition-transform duration-300 hover:scale-105">
             <img
               src="/logos/Logo-real-do-solar-01.png"
               alt="Sorvetes Real do Solar"
@@ -38,19 +37,19 @@ export default function Home() {
           </div>
         </header>
 
-        {/* 3D Photo Corridor Stream Component */}
-        <div className="w-full my-auto py-2 z-10 animate-stagger-2">
+        {/* 3D Photo Corridor Stream Component with Generous Spacing & Container Cards */}
+        <div className="w-full my-auto py-4 z-10 animate-stagger-2">
           <ImageStreamHero
             images={HERO_IMAGES}
-            cards={10}
-            speed={20}
+            cards={6}
+            speed={22}
             axis={52}
-            className="w-full h-[240px] sm:h-[290px] md:h-[340px]"
+            className="w-full h-[250px] sm:h-[300px] md:h-[360px]"
           />
         </div>
 
-        {/* Hero Tagline / Footer quote */}
-        <div className="animate-stagger-3 z-20 text-center px-4 mt-2">
+        {/* Hero Tagline */}
+        <div className="animate-stagger-3 z-20 text-center px-4 mt-4">
           <p className="text-real-gold font-bold text-2xl sm:text-3xl tracking-wider uppercase drop-shadow-sm">
             Made in Salvador, Bahia.
           </p>

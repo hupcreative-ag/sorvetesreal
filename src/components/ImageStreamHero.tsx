@@ -18,15 +18,15 @@ export type CorridorPath = {
 };
 
 const PATH: Required<CorridorPath> = {
-  perspective: 30,
-  cardWidth: 18,
-  cardHeight: 25,
-  cardRadius: 0.4,
+  perspective: 32,
+  cardWidth: 17,
+  cardHeight: 23,
+  cardRadius: 1.2,
   birthHeight: 2.6,
-  exitHeight: 46,
-  railBirth: -11,
-  railExit: 44,
-  fan: 3.3,
+  exitHeight: 48,
+  railBirth: -14,
+  railExit: 48,
+  fan: 3.5,
   turnBirth: 6,
   turnExit: 28,
   stops: 24,
@@ -69,8 +69,8 @@ export type ImageStreamHeroProps = {
 
 export function ImageStreamHero({
   images,
-  cards = 9,
-  speed = 18,
+  cards = 6,
+  speed = 22,
   axis = 55,
   path,
   children,
@@ -113,7 +113,10 @@ export function ImageStreamHero({
               return (
                 <div
                   key={`${name}-${i}`}
-                  className={cn(card, "absolute overflow-hidden")}
+                  className={cn(
+                    card,
+                    "absolute overflow-hidden rounded-2xl shadow-2xl bg-[#59171C]/30 border border-white/30 p-1 flex items-center justify-center"
+                  )}
                   style={{
                     left: "50%",
                     top: `${axis}%`,
@@ -128,14 +131,16 @@ export function ImageStreamHero({
                   }}
                 >
                   {img ? (
-                    <img
-                      src={img.src}
-                      alt={img.alt ?? ""}
-                      loading="lazy"
-                      decoding="async"
-                      className="h-full w-full object-cover shadow-lg"
-                      draggable={false}
-                    />
+                    <div className="w-full h-full rounded-[inherit] overflow-hidden bg-black/20 flex items-center justify-center relative">
+                      <img
+                        src={img.src}
+                        alt={img.alt ?? ""}
+                        loading="lazy"
+                        decoding="async"
+                        className="w-full h-full object-cover rounded-[inherit] pointer-events-none select-none"
+                        draggable={false}
+                      />
+                    </div>
                   ) : null}
                 </div>
               );
