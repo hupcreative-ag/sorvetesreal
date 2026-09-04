@@ -16,28 +16,29 @@ export interface AnimatedTestimonialGridProps {
   children?: React.ReactNode;
 }
 
-// --- PRE-DEFINED POSITIONS FOR FLOATING PHOTOS AROUND SITE CONTENT ---
+// --- STRICT OUTER MARGIN POSITIONS FOR FLOATING PHOTOS ---
+// Strictly placed on outer left (2% - 8%) and outer right (2% - 8%) margins.
+// ZERO images in the central content area (10% to 90%).
 const imagePositions = [
-  // Desktop and Tablet positions (floating at side margins around content)
-  { top: '4%', left: '4%', className: 'hidden lg:block w-24 h-34 sm:w-28 sm:h-40' },
-  { top: '16%', left: '16%', className: 'hidden xl:block w-20 h-28' },
-  { top: '3%', right: '16%', className: 'hidden xl:block w-22 h-30' },
-  { top: '5%', right: '4%', className: 'hidden lg:block w-26 h-38' },
-  { top: '32%', right: '3%', className: 'hidden md:block w-22 h-32' },
-  { top: '56%', right: '4%', className: 'hidden lg:block w-24 h-36' },
-  { top: '42%', left: '3%', className: 'hidden md:block w-24 h-36' },
-  { bottom: '16%', left: '5%', className: 'hidden lg:block w-24 h-34' },
-  { bottom: '6%', left: '18%', className: 'hidden xl:block w-20 h-28' },
-  { bottom: '10%', right: '18%', className: 'hidden xl:block w-22 h-32' },
-  { bottom: '5%', right: '4%', className: 'hidden lg:block w-24 h-34' },
+  // Left side floating photos (Desktop / Tablet)
+  { top: '4%', left: '3%', width: '115px', height: '170px', className: 'hidden md:block' },
+  { top: '28%', left: '4%', width: '100px', height: '150px', className: 'hidden md:block' },
+  { top: '52%', left: '3%', width: '115px', height: '170px', className: 'hidden md:block' },
+  { top: '76%', left: '4%', width: '105px', height: '155px', className: 'hidden md:block' },
 
-  // Mobile-specific floating positions (staying at outer edges to avoid content overlap)
-  { top: '4%', left: '2%', className: 'block md:hidden w-14 h-20 opacity-90' },
-  { top: '3%', right: '2%', className: 'block md:hidden w-16 h-22 opacity-90' },
-  { top: '44%', left: '2%', className: 'block md:hidden w-16 h-22 opacity-90' },
-  { top: '42%', right: '2%', className: 'block md:hidden w-14 h-20 opacity-90' },
-  { bottom: '16%', left: '2%', className: 'block md:hidden w-16 h-22 opacity-90' },
-  { bottom: '5%', right: '2%', className: 'block md:hidden w-14 h-20 opacity-90' },
+  // Right side floating photos (Desktop / Tablet)
+  { top: '4%', right: '3%', width: '115px', height: '170px', className: 'hidden md:block' },
+  { top: '28%', right: '4%', width: '105px', height: '155px', className: 'hidden md:block' },
+  { top: '52%', right: '3%', width: '115px', height: '170px', className: 'hidden md:block' },
+  { top: '76%', right: '4%', width: '100px', height: '150px', className: 'hidden md:block' },
+
+  // Mobile side floating photos (Smaller, strictly pinned to screen edges)
+  { top: '5%', left: '2%', width: '70px', height: '105px', className: 'block md:hidden opacity-90' },
+  { top: '5%', right: '2%', width: '70px', height: '105px', className: 'block md:hidden opacity-90' },
+  { top: '48%', left: '2%', width: '65px', height: '98px', className: 'block md:hidden opacity-90' },
+  { top: '48%', right: '2%', width: '65px', height: '98px', className: 'block md:hidden opacity-90' },
+  { bottom: '6%', left: '2%', width: '70px', height: '105px', className: 'block md:hidden opacity-90' },
+  { bottom: '6%', right: '2%', width: '70px', height: '105px', className: 'block md:hidden opacity-90' },
 ];
 
 // --- ANIMATION LOGIC ---
@@ -80,38 +81,43 @@ export const AnimatedTestimonialGrid = ({
         className
       )}
     >
-      {/* Clean Floating Photos (NO container borders, NO background image) */}
+      {/* Floating Side Photos (Strictly in outer left/right margins) */}
       <div className="absolute inset-0 pointer-events-none z-0">
-        {testimonials.slice(0, imagePositions.length).map((testimonial, index) => (
-          <motion.div
-            key={index}
-            className={cn(
-              'absolute rounded-2xl shadow-xl overflow-hidden pointer-events-auto transition-transform duration-300 hover:shadow-2xl',
-              imagePositions[index].className
-            )}
-            style={{ 
-              top: imagePositions[index].top, 
-              left: imagePositions[index].left,
-              right: imagePositions[index].right,
-              bottom: imagePositions[index].bottom,
-            }}
-            variants={imageVariants}
-            initial="initial"
-            animate="animate"
-            whileHover={{ scale: 1.1, zIndex: 30, rotate: 0 }}
-            custom={index}
-          >
-            <motion.img
-              src={testimonial.imgSrc}
-              alt={testimonial.alt}
-              className="w-full h-full object-cover rounded-2xl pointer-events-none select-none aspect-[2/3]"
-              animate={floatingAnimation()}
-            />
-          </motion.div>
-        ))}
+        {testimonials.slice(0, imagePositions.length).map((testimonial, index) => {
+          const pos = imagePositions[index];
+          return (
+            <motion.div
+              key={index}
+              className={cn(
+                'absolute rounded-2xl shadow-xl overflow-hidden pointer-events-auto transition-transform duration-300 hover:shadow-2xl',
+                pos.className
+              )}
+              style={{ 
+                top: pos.top, 
+                left: pos.left,
+                right: pos.right,
+                bottom: pos.bottom,
+                width: pos.width,
+                height: pos.height,
+              }}
+              variants={imageVariants}
+              initial="initial"
+              animate="animate"
+              whileHover={{ scale: 1.12, zIndex: 30, rotate: 0 }}
+              custom={index}
+            >
+              <motion.img
+                src={testimonial.imgSrc}
+                alt={testimonial.alt}
+                className="w-full h-full object-cover rounded-2xl pointer-events-none select-none aspect-[2/3]"
+                animate={floatingAnimation()}
+              />
+            </motion.div>
+          );
+        })}
       </div>
 
-      {/* Main Content Layout on Clean Red Background */}
+      {/* Main Page Layout (100% clean central red background) */}
       <div className="relative z-10 w-full flex flex-col items-center">
         {children}
       </div>
