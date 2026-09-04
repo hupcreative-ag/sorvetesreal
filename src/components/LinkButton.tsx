@@ -23,8 +23,8 @@ export function LinkButton({
       className={cn(
         "group relative flex items-center justify-between w-full max-w-md py-4 px-6 rounded-2xl font-semibold text-lg md:text-xl transition-all duration-300 ease-out shadow-md hover:shadow-xl transform hover:-translate-y-0.5 active:translate-y-0 active:scale-[0.98] focus:outline-none focus:ring-4 focus:ring-real-gold/50 cursor-pointer overflow-hidden",
         isGold
-          ? "bg-real-gold text-real-wine border-2 border-real-gold/80 hover:bg-[#f6d563] hover:border-real-gold hover:text-real-wine"
-          : "bg-real-white text-real-red border-2 border-real-white/90 hover:bg-slate-50 hover:text-[#a5322e]",
+          ? "bg-real-gold text-real-wine border-2 border-real-gold/90 hover:bg-[#f5cb40] hover:border-real-gold hover:text-real-wine"
+          : "bg-real-white text-real-red border-2 border-real-white/90 hover:bg-slate-50 hover:text-[#a52628]",
         className
       )}
       {...props}
